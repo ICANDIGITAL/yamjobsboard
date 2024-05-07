@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Yam Jobs Board</title>
+    <style>
+        body { background-color: turquoise; }
+        .info { background-color: cream; }
+        .job-listing { background-color: cream; padding: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Yam Jobs Board</h1>
+    <form action="{% url 'search_jobs' %}" method="get">
+        <label for="query">Skills:</label>
+        <input type="text" id="query" name="query" value="{{ query }}" title="Enter skills like Python or Java to refine search">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ location }}" title="Adding a location narrows the search area">
+        <button type="submit">Search</button>
+        <button type="button" onclick="window.location.href='{{ request.path }}';">Reset</button>
+    </form>
+    <div class="info">
+        No personal information is needed to search. Your privacy is respected.
+    </div>
+    {% for job in jobs %}
+    <div class="job-listing">
+        <h2>{{ job.title }}</h2>
+        <p>{{ job.company_name }}</p>
+        <p>{{ job.description }}</p>
+        <a href="{{ job.detail_url }}">More details</a>
+    </div>
+    {% endfor %}
+</body>
+</html>
